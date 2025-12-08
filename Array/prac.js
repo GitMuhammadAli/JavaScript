@@ -82,7 +82,6 @@ for(let i=0;i<arr.length;i++){
     if(Array.isArray(arr[i])){
      let fl =  flattenarr(arr[i]);
      ar = ar.concat(fl);
-
     }else{
         ar.push(arr[i]);
     }
