@@ -49,45 +49,75 @@ function maxProfit(prices) {
 
 console.log(maxProfit([7, 1, 5, 3, 6, 4]));
 
+function productExceptSelf(arr) {
+  let res = [arr.length].fill(1);
+  let prefix = 1;
 
+  for (let i = 0; i < arr.length; i++) {
+    res[i] = prefix;
+    prefix *= arr[i];
+  }
 
-function productExceptSelf(arr){
-    let res = [arr.length].fill(1);
-    let prefix = 1;
-
-    for(let i=0;i<arr.length;i++){
-        res[i] = prefix
-        prefix*=arr[i];
-    }
-
-    let suffix = 1;
-    for(let i=arr.length-1;i>=0;i--){
-        res[i] *= suffix;
-        suffix *= arr[i];
-        console.log(suffix)
-    }
-    return res;
+  let suffix = 1;
+  for (let i = arr.length - 1; i >= 0; i--) {
+    res[i] *= suffix;
+    suffix *= arr[i];
+    console.log(suffix);
+  }
+  return res;
 }
-console.log(productExceptSelf([1,2,3,4]));
+console.log(productExceptSelf([1, 2, 3, 4]));
 
+function flattenarr(arr) {
+  let ar = [];
 
-
-
-
-function flattenarr(arr)
-{
-let ar = [];
-
-for(let i=0;i<arr.length;i++){
-    if(Array.isArray(arr[i])){
-     let fl =  flattenarr(arr[i]);
-     ar = ar.concat(fl);
-    }else{
-        ar.push(arr[i]);
+  for (let i = 0; i < arr.length; i++) {
+    if (Array.isArray(arr[i])) {
+      let fl = flattenarr(arr[i]);
+      ar = ar.concat(fl);
+    } else {
+      ar.push(arr[i]);
     }
-
-}
-return ar;
+  }
+  return ar;
 }
 
 console.log(flattenarr([1, [2, 3], 4, [5, 6]]));
+
+function rotateArray(arr, k) {
+  k = k % arr.length;
+
+  reverse(arr, 0, arr.length - 1);
+  reverse(arr, 0, k - 1);
+  reverse(arr, k, arr.length - 1);
+
+  return arr;
+}
+
+function reverse(arr, start, end) {
+  while (start < end) {
+    [arr[start], arr[end]] = [arr[end], arr[start]];
+    start++;
+    end--;
+  }
+}
+
+console.log(rotateArray([1, 2, 3], 2));
+
+
+function peekelement(arr){
+  const n = arr.length;
+
+  for(let i=0;i<n;i++){
+
+const lefty = i===0 ||  arr[i]>=arr[i-1];
+const righty = i===n-1 || arr[i]>=arr[i+1];
+
+if(lefty && righty){
+return i;
+}
+  }
+  return -1;
+}
+
+console.log(peekelement([1,2,3,1]));
